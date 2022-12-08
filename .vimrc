@@ -372,7 +372,7 @@ endfunction
 " MY: """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "colorscheme slate
-colorscheme vim-monokai-tasty
+"colorscheme vim-monokai-tasty
 
 au FocusGained,BufEnter * :silent! checktime
 "au FocusLost,WinLeave * :silent! w
