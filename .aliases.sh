@@ -3,7 +3,7 @@ export EDITOR=vim
 export PATH=$PATH:/opt/fasm:/opt/dotnet:/home/serid/.dotnet/tools:~/.local/bin
 
 # General
-alias rm="rm -i"
+#alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 alias l="ls"
@@ -34,6 +34,17 @@ alias remove_orphans="pacman -Qtdq | sudo xargs pacman -Rns --noconfirm"
 alias cag="clear; cargo"
 
 alias chelp="clang --help | grep"
+
+# Issue with arguments with spaces
+#function rm() {
+    ## Add -i if there are a lot of files
+    #if [[ $# -gt 1 ]]
+    #then
+        #/bin/rm -i $@
+    #else
+        #/bin/rm $1
+    #fi
+#}
 
 function cdl()
 {
