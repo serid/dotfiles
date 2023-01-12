@@ -1,7 +1,5 @@
 export EDITOR=vim
 
-export PATH=$PATH:/opt/fasm:/opt/dotnet:/home/serid/.dotnet/tools:~/.local/bin
-
 # General
 #alias rm="rm -i"
 alias mv="mv -i"
@@ -29,8 +27,6 @@ alias rmsc="rm -f Screenshot*"
 alias Find="find 2>/dev/null"
 alias sgpm="sudo systemctl start gpm"
 
-alias remove_orphans="pacman -Qtdq | sudo xargs pacman -Rns --noconfirm"
-
 alias cag="clear; cargo"
 
 alias chelp="clang --help | grep"
@@ -50,11 +46,6 @@ function cdl()
 {
   cd $1
   ls
-}
-
-function package_reason()
-{
-  pacman -Qi $1 | grep Reason
 }
 
 #function repeat() {
