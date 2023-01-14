@@ -31,6 +31,22 @@ alias cag="clear; cargo"
 
 alias chelp="clang --help | grep"
 
+function nixgc() {
+    # Delete old system generations
+    sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old
+
+    if [[ -z $1 ]]; then
+        echo Provide a generation number as argument to keep its bootloader from deletion. Here are the generations:
+        sudo nix-env -p /nix/var/nix/profiles/system --list-generations
+    else
+        echo Deleting all bootloader entries except $1.
+        sudo bash -c "cd /boot/loader/entries; ls | grep -v $1 | xargs rm"
+    fi
+
+    # Delete old user profile generations and collect garbage
+    nix-collect-garbage -d
+}
+
 # Issue with arguments with spaces
 #function rm() {
     ## Add -i if there are a lot of files
