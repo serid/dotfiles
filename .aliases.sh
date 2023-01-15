@@ -47,6 +47,15 @@ function nixgc() {
     nix-collect-garbage -d
 }
 
+function with_github_token() {
+    # Encrypt file "~/.git-credentials" with
+    #openssl aes-256-cbc -pbkdf2 -in ~/.git-credentials -out credentials.enc
+
+    openssl aes-256-cbc -pbkdf2 -d -in ~/dotfiles/credentials.enc -out ~/.git-credentials
+    $@
+    echo "" > ~/.git-credentials
+}
+
 # Issue with arguments with spaces
 #function rm() {
     ## Add -i if there are a lot of files
