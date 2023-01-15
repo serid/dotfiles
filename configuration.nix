@@ -67,7 +67,8 @@
       #gnomeExtensions.tweaks-in-system-menu
   #     thunderbird
     ];
-    hashedPassword = "$6$sydy0yt7FBiJ8cI5$f7cAJq11XYn6Q.x..o4MDPymXnK2vA.7pHCptkbSL/TppxxW/7xecvuw7bOtjGbuuQUjDSHnJs5H3dOkQ95l50";
+    # A hashed password can be generated using "mkpasswd -m sha-512" after installing the mkpasswd package.
+    hashedPassword = "$6$FDRuJ6XblatbUF8O$2xWWByeNSpKma6a6o2Dm8xO7aZ3XTK9JgYxrIXfzRhcb2zE9OOv.EF4j9K2ay0Ibc5bp37SygP//rYD6wsvjK/";
   };
 
   # List packages installed in system profile. To search, run:
