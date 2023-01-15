@@ -18,6 +18,7 @@ alias hexdump="hexdump -C"
 alias extract="tar -xvf"
 alias absolute="readlink -f"
 alias pong="ping 8.8.8.8"
+alias poff="poweroff"
 alias Find="find 2>/dev/null"
 
 function nixgc() {
