@@ -26,12 +26,17 @@
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
-  # Enable the X11 windowing system.
+  # Enable GNOME on Wayland.
   services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Enable the X11 windowing system.
+  #services.xserver.enable = true;
+  # Enable the GNOME Desktop Environment.
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
   # vscode fails, fallback to a blanket `allowUnfree = true` for now
   #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
