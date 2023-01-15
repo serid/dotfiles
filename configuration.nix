@@ -52,10 +52,16 @@
     packages = with pkgs; [
       openssl # for decrypting github token
       git
-      vscode-fhs
       chromium
       tdesktop
       discord
+
+      (vscode-with-extensions.override {
+        vscodeExtensions = with vscode-extensions; [
+          #bbenoist.nix
+          rust-lang.rust-analyzer
+        ];
+      })
 
       # TODO: declaratively set keybord shortcut for switching layout https://github.com/gvolpe/dconf2nix
       #gnomeExtensions.tweaks-in-system-menu
