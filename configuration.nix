@@ -57,6 +57,7 @@
     packages = with pkgs; [
       openssl # for decrypting github token
       git
+      gnome.gnome-terminal
       chromium
       tdesktop
       discord
