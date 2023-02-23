@@ -59,6 +59,7 @@
       git
       gnome.gnome-terminal
       chromium
+      gimp
       tdesktop
       discord
 
