@@ -68,7 +68,8 @@
       (vscode-with-extensions.override {
         vscodeExtensions = with vscode-extensions; [
           #bbenoist.nix
-          rust-lang.rust-analyzer
+          haskell.haskell
+          #rust-lang.rust-analyzer
         ];
       })
 
