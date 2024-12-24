@@ -27,10 +27,19 @@
   time.timeZone = "Europe/Moscow";
 
   # Enable GNOME on Wayland.
+  #services.xserver.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.gdm.wayland = true;
+  #services.xserver.desktopManager.gnome.enable = true;
+
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Enable Hyprland
+  #services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.gdm.wayland = true;
+  #programs.hyprland.enable = true;
 
   # Enable the X11 windowing system.
   #services.xserver.enable = true;
@@ -57,18 +66,21 @@
     packages = with pkgs; [
       openssl # for decrypting github token
       git
-      gnome.gnome-terminal
+      xray
+      ghostty
       chromium
       gimp
       tdesktop
-      discord
+      firefox
+      #discord
 
-      jetbrains.idea-ultimate
+      #jetbrains.idea-ultimate
 
       (vscode-with-extensions.override {
         vscodeExtensions = with vscode-extensions; [
           #bbenoist.nix
-          haskell.haskell
+          #haskell.haskell
+          #justusadam.language-haskell
           #rust-lang.rust-analyzer
         ];
       })
@@ -78,13 +90,13 @@
   #     thunderbird
     ];
     # A hashed password can be generated using "mkpasswd -m sha-512" after installing the mkpasswd package.
-    hashedPassword = "$6$FDRuJ6XblatbUF8O$2xWWByeNSpKma6a6o2Dm8xO7aZ3XTK9JgYxrIXfzRhcb2zE9OOv.EF4j9K2ay0Ibc5bp37SygP//rYD6wsvjK/";
+    hashedPassword = "$6$cezSswUwD1jaiyLv$gZfEYmYXsdirpkDp8C6apknbpdzU3B2CzP5PPC7YrFZICn51d3GZFx6xpvLdETsL0K713cjUwoBz9sCNsxDoR.";
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     file
     wget
   ];

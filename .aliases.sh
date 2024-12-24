@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 
 # General
 #alias rm="rm -i"
@@ -7,7 +7,7 @@ alias cp="cp -i"
 alias l="ls"
 alias ll='ls -oh'
 alias la='ls -A'
-alias v="vim"
+alias v="nvim"
 alias j="jobs"
 alias c="cdl"
 alias o="xdg-open"
@@ -57,8 +57,7 @@ function with_github_token() {
     #fi
 #}
 
-function cdl()
-{
+function cdl() {
   cd $1
   ls
 }
