@@ -21,20 +21,17 @@ alias pong="ping 8.8.8.8"
 alias poff="poweroff"
 alias Find="find 2>/dev/null"
 
+export HISTFILESIZE=10000
+export HISTSIZE=99999
+
 function nixgc() {
-    # Delete old system generations
-    sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old
+  nix-collect-garbage -d
+  sudo nix-collect-garbage -d
 
-    if [[ -z $1 ]]; then
-        echo Provide a generation number as argument to keep its bootloader from deletion. Here are the generations:
-        sudo nix-env -p /nix/var/nix/profiles/system --list-generations
-    else
-        echo Deleting all bootloader entries except $1.
-        sudo bash -c "cd /boot/loader/entries; ls | grep -v $1 | xargs rm"
-    fi
-
-    # Delete old user profile generations and collect garbage
-    nix-collect-garbage -d
+  echo "Deleting old bootloader entries."
+  local last_generation=$(sudo nix-env -p /nix/var/nix/profiles/system --list-generations | awk 'END {print $1}')
+  echo "Keeping generation $last_generation."
+  sudo bash -c "cd /boot/loader/entries; ls | grep -v $last_generation | xargs rm"
 }
 
 function with_github_token() {

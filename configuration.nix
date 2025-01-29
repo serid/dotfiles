@@ -34,11 +34,14 @@
 
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Enable Hyprland
   #services.xserver.displayManager.gdm.enable = true;
   #services.xserver.displayManager.gdm.wayland = true;
+  #services.displayManager.sddm.enable = true;
+  #services.displayManager.sddm.wayland.enable = true;
   #programs.hyprland.enable = true;
 
   # Enable the X11 windowing system.
@@ -66,8 +69,9 @@
     packages = with pkgs; [
       openssl # for decrypting github token
       git
-      xray
+      #xray
       ghostty
+      helix
       chromium
       gimp
       tdesktop
@@ -76,6 +80,8 @@
 
       #jetbrains.idea-ultimate
 
+      vscode
+      /*
       (vscode-with-extensions.override {
         vscodeExtensions = with vscode-extensions; [
           #bbenoist.nix
@@ -84,6 +90,7 @@
           #rust-lang.rust-analyzer
         ];
       })
+      */
 
       # TODO: declaratively set keybord shortcut for switching layout https://github.com/gvolpe/dconf2nix
       #gnomeExtensions.tweaks-in-system-menu
