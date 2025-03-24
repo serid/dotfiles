@@ -17,7 +17,7 @@
   #boot.loader.grub.enable = true;
   #boot.loader.grub.device = "nodev";
   #boot.loader.grub.efiSupport = true;
-  #boot.loader.grub.useOSProber = true;  
+  #boot.loader.grub.useOSProber = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -67,12 +67,20 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
+      # rust utils
+      eza
+      bat
+      fd
+      ripgrep
+      dust
+      tokei
+
       openssl # for decrypting github token
+      gcc # often used in shells i pull and takes long to download. pin to prevent gc
       git
       #xray
       ghostty
-      helix
-      chromium
+      ungoogled-chromium
       gimp
       tdesktop
       firefox
@@ -81,6 +89,7 @@
       #jetbrains.idea-ultimate
 
       vscode
+      #vscodium
       /*
       (vscode-with-extensions.override {
         vscodeExtensions = with vscode-extensions; [
@@ -103,7 +112,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    helix # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     file
     wget
   ];

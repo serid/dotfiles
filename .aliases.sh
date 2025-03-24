@@ -1,19 +1,17 @@
-export EDITOR=nvim
+export EDITOR=hx
 
 # General
 #alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
-alias l="ls"
-alias ll='ls -oh'
-alias la='ls -A'
-alias v="nvim"
+alias l="exa"
+alias ll="exa -l"
+alias la="exa -A"
 alias j="jobs"
 alias c="cdl"
 alias o="xdg-open"
 alias p="python3"
 alias pi="p -i"
-alias nf="touch"
 alias hexdump="hexdump -C"
 alias extract="tar -xvf"
 alias absolute="readlink -f"
@@ -38,7 +36,7 @@ function with_github_token() {
     # Encrypt file "~/.git-credentials" with
     #openssl aes-256-cbc -pbkdf2 -in ~/.git-credentials -out credentials.enc
 
-    openssl aes-256-cbc -pbkdf2 -d -in ~/dotfiles/credentials.enc -out ~/.git-credentials
+    openssl aes-256-cbc -pbkdf2 -d -in ~/dotfiles/credentials.enc -out ~/.git-credentials || return
     $@
     echo "" > ~/.git-credentials
 }
