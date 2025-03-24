@@ -1,0 +1,10 @@
+{
+    "editor.rulers": [80],
+    "files.autoSave": "onFocusChange",
+    "workbench.colorTheme": "Andromeda Bordered",
+    "editor.wordWrap": "wordWrapColumn",
+    "diffEditor.renderSideBySide": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "window.customTitleBarVisibility": "windowed",
+    "editor.tabSize": 2
+}

@@ -1,0 +1,15 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "alt+left",
+        "command": "workbench.action.navigateBackInNavigationLocations"
+    },
+    {
+        "key": "alt+right",
+        "command": "workbench.action.navigateForwardInNavigationLocations"
+    },
+    {
+        "key": "ctrl+k ctrl+o",
+        "command": "git.openFile"
+    }
+]

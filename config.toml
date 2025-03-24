@@ -1,0 +1,11 @@
+[editor]
+insert-final-newline = false
+
+[editor.soft-wrap]
+enable = true
+
+[keys.normal]
+C-z = [":write-all", "suspend"]
+A-k = "scroll_up"
+A-j = "scroll_down"
+D = "delete_char_backward"
