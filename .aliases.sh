@@ -32,13 +32,15 @@ function nixgc() {
   sudo bash -c "cd /boot/loader/entries; ls | grep -v $last_generation | xargs rm"
 }
 
-function with_github_token() {
-    # Encrypt file "~/.git-credentials" with
-    #openssl aes-256-cbc -pbkdf2 -in ~/.git-credentials -out credentials.enc
+# Create a new "~/.git-credentials" in encryoted form
+function new_github_token() {
+    echo "https://serid:$1@github.com" | openssl aes-256-cbc -pbkdf2 -out credentials.enc
+}
 
+function with_github_token() {
     openssl aes-256-cbc -pbkdf2 -d -in ~/dotfiles/credentials.enc -out ~/.git-credentials || return
     $@
-    echo "" > ~/.git-credentials
+    rm ~/.git-credentials
 }
 
 # Issue with arguments with spaces
