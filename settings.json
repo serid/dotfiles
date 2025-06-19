@@ -6,5 +6,7 @@
     "diffEditor.renderSideBySide": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
     "window.customTitleBarVisibility": "windowed",
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "chat.commandCenter.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false
 }
