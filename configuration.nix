@@ -26,16 +26,27 @@
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
+  #services.fwupd.enable = true;
+
   # Enable GNOME on Wayland.
   #services.xserver.enable = true;
   #services.xserver.displayManager.gdm.enable = true;
   #services.xserver.displayManager.gdm.wayland = true;
   #services.xserver.desktopManager.gnome.enable = true;
 
-  services.xserver.enable = true;
+  #services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    plasma-browser-integration # Keep me if you use KDE Connect
+    kdepim-runtime # Unneeded if you use Thunderbird, etc.
+    konsole
+    oxygen
+    elisa
+    kwalletmanager
+  ];
 
   # Enable Hyprland
   #services.xserver.displayManager.gdm.enable = true;
@@ -63,6 +74,9 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
+  users.users.root = {
+    hashedPassword = "$6$rH1RccqGWOa8FATa$vdFe6zPnRj7EqiI.Bh1XiFlEI5xMUdKvAeeA5Z6l8UDE8Cgxr9F5.zuouiHsMQ5RN0Dz8glokC5.1Z1i6dIr.1";
+  };
   users.users.jit = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
@@ -76,14 +90,18 @@
       tokei
 
       openssl # for decrypting github token
-      gcc # often used in shells i pull and takes long to download. pin to prevent gc
       git
-      #xray
+      unzip
       ghostty
-      ungoogled-chromium
       gimp
       tdesktop
+      thunderbird
       firefox
+      ungoogled-chromium
+      #opera
+
+      xray
+      proxychains-ng
       #discord
 
       #jetbrains.idea-ultimate
@@ -103,7 +121,6 @@
 
       # TODO: declaratively set keybord shortcut for switching layout https://github.com/gvolpe/dconf2nix
       #gnomeExtensions.tweaks-in-system-menu
-  #     thunderbird
     ];
     # A hashed password can be generated using "mkpasswd -m sha-512" after installing the mkpasswd package.
     hashedPassword = "$6$cezSswUwD1jaiyLv$gZfEYmYXsdirpkDp8C6apknbpdzU3B2CzP5PPC7YrFZICn51d3GZFx6xpvLdETsL0K713cjUwoBz9sCNsxDoR.";
