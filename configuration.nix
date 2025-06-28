@@ -1,85 +1,69 @@
 # Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, pkgs, lib, ... }:
 
-{
+let
+  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      "${impermanence}/nixos.nix"
     ];
 
-  # Select between systemd-boot and GRUB EFI bootloaders.
-  #boot.loader.systemd-boot.enable = false;
+  fileSystems."/".options = [ "defaults" "size=400M" "mode=755" "noatime" ];
+  fileSystems."/nix".options = [ "noatime" ];
+  fileSystems."/persist".options = [ "noatime" ];
+  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/workshop".options = [ "noatime" ];
+
+  fileSystems."/boot".options = [ "noatime" ];
+
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.editor = false;
-  #boot.loader.grub.enable = true;
-  #boot.loader.grub.device = "nodev";
-  #boot.loader.grub.efiSupport = true;
-  #boot.loader.grub.useOSProber = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  environment.persistence."/persist" = {
+    directories = [
+      "/etc/nixos"
+      "/var/lib/nixos"
+      "/var/log"
 
-  # Set your time zone.
+      "/home"
+      "/etc/NetworkManager/system-connections"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
+
+  security.sudo.extraConfig = ''
+    # Disarm lectures lest they be shown every reboot
+    Defaults lecture = never
+  '';
+
+  # Use latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
+  networking.useDHCP = false;
+
   time.timeZone = "Europe/Moscow";
 
-  #services.fwupd.enable = true;
-
-  # Enable GNOME on Wayland.
-  #services.xserver.enable = true;
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.displayManager.gdm.wayland = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-
-  #services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    plasma-browser-integration # Keep me if you use KDE Connect
-    kdepim-runtime # Unneeded if you use Thunderbird, etc.
-    konsole
-    oxygen
-    elisa
-    kwalletmanager
-  ];
-
-  # Enable Hyprland
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.displayManager.gdm.wayland = true;
-  #services.displayManager.sddm.enable = true;
-  #services.displayManager.sddm.wayland.enable = true;
-  #programs.hyprland.enable = true;
-
-  # Enable the X11 windowing system.
-  #services.xserver.enable = true;
-  # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
-
-  # vscode fails, fallback to a blanket `allowUnfree = true` for now
-  #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-  #  "code"
-  #  "vscode-1.73.1"
-  #  "discord"
-  #];
   nixpkgs.config.allowUnfree = true;
+  nix.extraOptions = ''
+    extra-experimental-features = nix-command
+    extra-experimental-features = flakes
+  '';
 
-  # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = false;
-  users.users.root = {
-    hashedPassword = "$6$rH1RccqGWOa8FATa$vdFe6zPnRj7EqiI.Bh1XiFlEI5xMUdKvAeeA5Z6l8UDE8Cgxr9F5.zuouiHsMQ5RN0Dz8glokC5.1Z1i6dIr.1";
-  };
+  users.users.root.initialPassword = "1";
   users.users.jit = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ];
     packages = with pkgs; [
       # rust utils
       eza
@@ -107,43 +91,53 @@
       #jetbrains.idea-ultimate
 
       vscode
-      #vscodium
-      /*
-      (vscode-with-extensions.override {
-        vscodeExtensions = with vscode-extensions; [
-          #bbenoist.nix
-          #haskell.haskell
-          #justusadam.language-haskell
-          #rust-lang.rust-analyzer
-        ];
-      })
-      */
-
-      # TODO: declaratively set keybord shortcut for switching layout https://github.com/gvolpe/dconf2nix
-      #gnomeExtensions.tweaks-in-system-menu
     ];
-    # A hashed password can be generated using "mkpasswd -m sha-512" after installing the mkpasswd package.
-    hashedPassword = "$6$cezSswUwD1jaiyLv$gZfEYmYXsdirpkDp8C6apknbpdzU3B2CzP5PPC7YrFZICn51d3GZFx6xpvLdETsL0K713cjUwoBz9sCNsxDoR.";
+    initialPassword = "1";
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile.
+  # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     helix # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     file
     wget
   ];
 
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    plasma-browser-integration # Keep me if you use KDE Connect
+    kdepim-runtime # Unneeded if you use Thunderbird, etc.
+    konsole
+    oxygen
+    elisa
+    kwalletmanager
+  ];
+
+  #services.deluge.enable = true;
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
   system.copySystemConfiguration = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  # This option defines the first version of NixOS you have installed on this particular machine,
+  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+  #
+  # Most users should NEVER change this value after the initial install, for any reason,
+  # even if you've upgraded your system to a new NixOS release.
+  #
+  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
+  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
+  # to actually do that.
+  #
+  # This value being lower than the current NixOS release does NOT mean your system is
+  # out of date, out of support, or vulnerable.
+  #
+  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+  # and migrated your data accordingly.
+  #
+  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

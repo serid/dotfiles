@@ -14,21 +14,37 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/fsroot";
-      fsType = "f2fs";
+    { device = "none";
+      fsType = "tmpfs";
+    };
+
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-label/Notroot";
+      fsType = "btrfs";
+      options = [ "subvol=persist" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-label/Notroot";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
+    };
+
+  fileSystems."/workshop" =
+    { device = "/dev/disk/by-label/Notroot";
+      fsType = "btrfs";
+      options = [ "subvol=workshop" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/fsboot";
+    { device = "/dev/disk/by-label/EFI";
       fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ]; # modified
     };
 
-  fileSystems."/mnt/win" =
-    { device = "/dev/disk/by-label/fswin";
-      fsType = "ntfs";
-    };
-
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-label/Swap"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -39,10 +55,5 @@
   # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  #fonts.fontconfig.hinting.style = "full";
-  #fonts.fontconfig.antialias = false;
-  # todo: configure fontconfig
 }
