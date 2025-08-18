@@ -46,6 +46,7 @@ in {
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernel.sysctl."kernel.sysrq" = 1;
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -66,14 +67,14 @@ in {
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
       # rust utils
-      eza
       bat
       fd
       ripgrep
       dust
       tokei
 
-      openssl # for decrypting github token
+      tree
+
       git
       unzip
       ghostty
@@ -115,7 +116,61 @@ in {
     kwalletmanager
   ];
 
+  environment.variables = {
+    EDITOR = "${pkgs.helix}/bin/hx";
+  };
   #services.deluge.enable = true;
+  programs.fish.enable = true;
+  # todo: port auto-shell
+  programs.fish.shellAliases = {
+    nix-shell = "nix-shell --run fish";
+    l = "${pkgs.eza}/bin/eza --group-directories-first";
+    ll = "l -l";
+    la = "l -A";
+    rm = "rm -vI";
+    rmr = "rm -r";
+    j = "jobs";
+    o = "xdg-open";
+    hexdump = "hexdump -C";
+    tar-ex = "tar -xvf";
+    poff = "poweroff";
+    diff = "diff --color=auto";
+    git-river = "${pkgs.git}/bin/git log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
+  };
+  programs.fish.interactiveShellInit = ''
+    function cd; builtin cd "$argv" && l; end
+
+    # Create a new "~/.git-credentials" in encryoted form
+    function new_github_token
+      echo "https://serid:$1@github.com" | ${pkgs.openssl}/bin/openssl aes-256-cbc -pbkdf2 -out credentials.enc
+    end
+
+    function with_github_token
+      ${pkgs.openssl}/bin/openssl aes-256-cbc -pbkdf2 -d -in /workshop/dotfiles/credentials.enc -out ~/.git-credentials || return
+      $argv
+      rm ~/.git-credentials
+    end
+
+    function nixgc
+      nix-collect-garbage -d
+      sudo nix-collect-garbage -d
+
+      echo "Deleting old bootloader entries."
+      local last_generation=$(sudo nix-env -p /nix/var/nix/profiles/system --list-generations | awk 'END {print $1}')
+      echo "Keeping generation $last_generation."
+      sudo bash -c "cd /boot/loader/entries; ls | grep -v $last_generation | xargs rm"
+    end
+  '';
+
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
