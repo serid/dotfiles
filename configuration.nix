@@ -152,11 +152,10 @@ in {
     end
 
     function nixgc
-      nix-collect-garbage -d
       sudo nix-collect-garbage -d
 
       echo "Deleting old bootloader entries."
-      local last_generation=$(sudo nix-env -p /nix/var/nix/profiles/system --list-generations | awk 'END {print $1}')
+      set last_generation $(sudo nix-env -p /nix/var/nix/profiles/system --list-generations | awk 'END {print $1}')
       echo "Keeping generation $last_generation."
       sudo bash -c "cd /boot/loader/entries; ls | grep -v $last_generation | xargs rm"
     end
@@ -170,6 +169,13 @@ in {
         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
       fi
     '';
+  };
+
+  programs.steam = {
+    enable = true;
+    #remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    #dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    #localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
