@@ -75,7 +75,7 @@ in {
 
       tree
 
-      git
+      gitFull
       unzip
       ghostty
       gimp
