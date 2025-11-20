@@ -13,7 +13,7 @@ in {
       "${impermanence}/nixos.nix"
     ];
 
-  fileSystems."/".options = [ "defaults" "size=400M" "mode=755" "noatime" ];
+  fileSystems."/".options = [ "defaults" "size=8G" "mode=755" "noatime" ];
   fileSystems."/nix".options = [ "noatime" ];
   fileSystems."/persist".options = [ "noatime" ];
   fileSystems."/persist".neededForBoot = true;
@@ -53,6 +53,13 @@ in {
   networking.useDHCP = false;
 
   time.timeZone = "Europe/Moscow";
+  i18n = {
+    supportedLocales = [ "all" ];
+    defaultLocale = "en_IE.UTF-8";
+    extraLocaleSettings = {
+      LC_COLLATE = "C.UTF-8";
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
   nix.extraOptions = ''
@@ -118,6 +125,7 @@ in {
 
   environment.variables = {
     EDITOR = "${pkgs.helix}/bin/hx";
+    LESS = "-RiF --mouse --wheel-lines=3";
   };
   #services.deluge.enable = true;
   programs.fish.enable = true;
@@ -171,12 +179,9 @@ in {
     '';
   };
 
-  programs.steam = {
-    enable = true;
-    #remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    #dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    #localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
+  # programs.steam = {
+    # enable = true;
+  # };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
