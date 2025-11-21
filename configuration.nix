@@ -29,6 +29,7 @@ in {
     directories = [
       "/etc/nixos"
       "/var/lib/nixos"
+      # "/var/lib/docker"
       "/var/log"
 
       "/home"
@@ -111,6 +112,8 @@ in {
     wget
   ];
 
+  # services.xserver.enable = true;
+
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
@@ -178,6 +181,12 @@ in {
       fi
     '';
   };
+
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.rootless = {
+    # enable = true;
+    # setSocketVariable = true;
+  # };
 
   # programs.steam = {
     # enable = true;
