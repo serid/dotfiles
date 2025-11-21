@@ -146,9 +146,16 @@ in {
     git-river = "${pkgs.git}/bin/git log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
   };
   programs.fish.interactiveShellInit = ''
+    set -g fish_greeting
+
     function cd; builtin cd "$argv" && l; end
 
-    # Create a new "~/.git-credentials" in encryoted form
+    # Default "nix develop" does not work with "exec fish"
+    function nd
+      nix develop $argv -c $SHELL
+    end
+
+    # Create a new "~/.git-credentials" in encrypted form
     function new_github_token
       echo "https://serid:$1@github.com" | ${pkgs.openssl}/bin/openssl aes-256-cbc -pbkdf2 -out credentials.enc
     end
@@ -169,12 +176,13 @@ in {
     end
   '';
 
+  # Drop from Bash into Fish immediatenly when opening an interactive shell AND not executing a command with "-c"
   programs.bash = {
     interactiveShellInit = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      if [[ -z ''${BASH_EXECUTION_STRING} ]]
       then
-        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+        export SHELL=${pkgs.fish}/bin/fish
+        exec ${pkgs.fish}/bin/fish
       fi
     '';
   };
