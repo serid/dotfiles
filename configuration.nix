@@ -73,7 +73,6 @@
 
       tree
 
-      gitFull
       unzip
       ghostty
       gimp
@@ -154,7 +153,7 @@
 
     # Create a new "~/.git-credentials" in encrypted form
     function new_github_token
-      echo "https://serid:$1@github.com" | ${pkgs.openssl}/bin/openssl aes-256-cbc -pbkdf2 -out credentials.enc
+      echo "https://serid:$argv[1]@github.com" | ${pkgs.openssl}/bin/openssl aes-256-cbc -pbkdf2 -out /workshop/dotfiles/credentials.enc
     end
 
     function with_github_token
@@ -183,6 +182,16 @@
       fi
     '';
   };
+
+  programs.git = {
+    enable = true;
+    config = {
+      credential.helper = "store";
+        # let git = pkgs.git.override { withLibsecret = true; }; in
+        # "${pkgs.git-credential-keepassxc}/bin/git-credential-keepassxc";
+    };
+  };
+
 
   # programs.steam = {
     # enable = true;
