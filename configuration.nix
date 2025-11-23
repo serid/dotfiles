@@ -3,16 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, pkgs, lib, ... }:
-
-let
-  impermanence = builtins.fetchTarball "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-in {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      "${impermanence}/nixos.nix"
-    ];
-
+{
   fileSystems."/".options = [ "defaults" "size=8G" "mode=755" "noatime" ];
   fileSystems."/nix".options = [ "noatime" ];
   fileSystems."/persist".options = [ "noatime" ];
@@ -131,7 +122,7 @@ in {
   programs.fish.enable = true;
   # todo: port auto-shell
   programs.fish.shellAliases = {
-    nix-shell = "nix-shell --run fish";
+    nix-shell = "nix-shell --run \"$SHELL\"";
     l = "${pkgs.eza}/bin/eza --group-directories-first";
     ll = "l -l";
     la = "l -A";
@@ -148,11 +139,17 @@ in {
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting
 
-    function cd; builtin cd "$argv" && l; end
+    function cd; builtin cd $argv && l; end
 
     # Default "nix develop" does not work with "exec fish"
     function nd
-      nix develop $argv -c $SHELL
+      nix develop $argv -c "$SHELL"
+    end
+
+    # Show status and changes to config before enacting them
+    function nb
+      git -C /workshop/dotfiles status --verbose --verbose
+      sudo nixos-rebuild $argv
     end
 
     # Create a new "~/.git-credentials" in encrypted form
@@ -190,11 +187,6 @@ in {
   # programs.steam = {
     # enable = true;
   # };
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

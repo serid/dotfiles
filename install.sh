@@ -1,3 +1,6 @@
+ln -sf /workshop/dotfiles/flake.nix /etc/nixos/flake.nix
+
+# TODO: home-manager
 ln -sf /workshop/dotfiles/.aliases.sh ~/.aliases.sh
 ln -sf /workshop/dotfiles/.vimrc ~/.vimrc
 ln -sf /workshop/dotfiles/settings.json ~/.config/Code/User/settings.json
