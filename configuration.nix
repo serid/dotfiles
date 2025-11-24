@@ -82,6 +82,8 @@
       ungoogled-chromium
       #opera
 
+      kdePackages.karousel
+
       xray
       proxychains-ng
       #discord
