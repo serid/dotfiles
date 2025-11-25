@@ -8,5 +8,6 @@
     "window.customTitleBarVisibility": "windowed",
     "editor.tabSize": 2,
     "chat.commandCenter.enabled": false,
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "window.commandCenter": false
 }

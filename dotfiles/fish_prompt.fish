@@ -1,4 +1,4 @@
-# Default fish prompt obtained through "fish_prompt"
+# Default fish prompt obtained through "type fish_prompt"
 # Modified to indicate when in nix-shell
 function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus

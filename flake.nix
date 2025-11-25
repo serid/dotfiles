@@ -12,6 +12,7 @@
       modules = [
         ./hardware-configuration.nix
         ./configuration.nix
+        ./home-linker.nix
 
         impermanence.nixosModules.default
 
