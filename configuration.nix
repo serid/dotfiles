@@ -39,7 +39,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
 
