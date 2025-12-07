@@ -82,6 +82,7 @@
       #opera
 
       kdePackages.karousel
+      vial
 
       xray
       proxychains-ng
@@ -192,6 +193,10 @@
         # "${pkgs.git-credential-keepassxc}/bin/git-credential-keepassxc";
     };
   };
+
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  '';
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
