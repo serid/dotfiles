@@ -4,7 +4,7 @@
 
 { config, pkgs, lib, ... }:
 {
-  fileSystems."/".options = [ "defaults" "size=8G" "mode=755" "noatime" ];
+  fileSystems."/".options = [ "defaults" "size=32G" "mode=755" "noatime" ];
   fileSystems."/nix".options = [ "noatime" ];
   fileSystems."/persist".options = [ "noatime" ];
   fileSystems."/persist".neededForBoot = true;
@@ -153,6 +153,14 @@
       sudo nixos-rebuild $argv
     end
 
+    function q
+      if test -d $argv[1]
+        ${pkgs.eza}/bin/eza $argv
+        return
+      end
+      ${pkgs.bat}/bin/bat $argv
+    end
+    
     # Create a new "~/.git-credentials" in encrypted form
     function new_github_token
       echo "https://serid:$argv[1]@github.com" | ${pkgs.openssl}/bin/openssl aes-256-cbc -pbkdf2 -out /workshop/dotfiles/credentials.enc
