@@ -75,7 +75,7 @@
       unzip
       ghostty
       gimp
-      tdesktop
+      telegram-desktop
       thunderbird
       firefox
       ungoogled-chromium
