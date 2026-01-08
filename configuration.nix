@@ -127,6 +127,7 @@
     l = "${pkgs.eza}/bin/eza --group-directories-first";
     ll = "l -l";
     la = "l -A";
+    pg = "printf '%s\n'"; # print paths matching glob pattern
     rm = "rm -vI";
     rmr = "rm -r";
     j = "jobs";
