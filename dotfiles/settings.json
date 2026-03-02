@@ -1,7 +1,6 @@
 {
     "editor.rulers": [80],
     "files.autoSave": "onFocusChange",
-    "workbench.colorTheme": "Andromeda Bordered",
     "editor.wordWrap": "wordWrapColumn",
     "diffEditor.renderSideBySide": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
@@ -9,5 +8,6 @@
     "editor.tabSize": 2,
     "chat.commandCenter.enabled": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "window.commandCenter": false
+    "window.commandCenter": false,
+    "workbench.colorTheme": "Andromeda Bordered"
 }

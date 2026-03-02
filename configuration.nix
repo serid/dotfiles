@@ -69,8 +69,7 @@
       ripgrep
       dust
       tokei
-
-      tree
+      btop
 
       unzip
       ghostty
@@ -81,7 +80,7 @@
       ungoogled-chromium
       #opera
 
-      kdePackages.karousel
+      #kdePackages.karousel
       vial
 
       xray
@@ -91,6 +90,8 @@
       #jetbrains.idea-ultimate
 
       vscode
+      zed-editor
+      nil
     ];
     initialPassword = "1";
   };
@@ -127,6 +128,8 @@
     l = "${pkgs.eza}/bin/eza --group-directories-first";
     ll = "l -l";
     la = "l -A";
+    tree = "l -Ta";
+    fd = "fd -H"; # Find hidden files too
     pg = "printf '%s\n'"; # print paths matching glob pattern
     rm = "rm -vI";
     rmr = "rm -r";
