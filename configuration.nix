@@ -69,6 +69,8 @@
       ripgrep
       dust
       tokei
+      wl-clipboard-rs
+      
       btop
 
       unzip
@@ -78,7 +80,9 @@
       thunderbird
       firefox
       ungoogled-chromium
-      #opera
+
+      lmstudio
+      opencode
 
       #kdePackages.karousel
       vial
