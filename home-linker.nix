@@ -1,5 +1,4 @@
 let configs = {
-  ".vimrc" = ".vimrc";
   "settings.json" = ".config/Code/User/settings.json";
   "keybindings.json" = ".config/Code/User/keybindings.json";
   "config.toml" = ".config/helix/config.toml";
@@ -14,8 +13,8 @@ let configs = {
 {
   systemd.services.just-in-time-home-linker = {
     wantedBy = [ "default.target" ];
-    wants = [ "home.mount" ];
-    after = [ "home.mount" ];
+    wants = [ "-.mount" ];
+    after = [ "-.mount" ];
     serviceConfig.Type = "oneshot";
     serviceConfig.User = "jit";
     inherit script;
@@ -23,8 +22,8 @@ let configs = {
 
   systemd.services.just-in-time-home-linker-root = {
     wantedBy = [ "default.target" ];
-    wants = [ "home.mount" ];
-    after = [ "home.mount" ];
+    wants = [ "-.mount" ];
+    after = [ "-.mount" ];
     serviceConfig.Type = "oneshot";
     script = ''
       ln -sf /workshop/dotfiles/flake.nix /etc/nixos/flake.nix

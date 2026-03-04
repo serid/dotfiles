@@ -1,6 +1,5 @@
 [editor]
 insert-final-newline = false
-default-yank-register = "+"
 
 [editor.soft-wrap]
 enable = true
@@ -12,3 +11,10 @@ C-right = "move_next_word_end"
 A-k = "scroll_up"
 A-j = "scroll_down"
 D = "delete_char_backward"
+
+[keys.insert]
+C-z = [":write-all", "suspend"]
+C-left = "move_prev_word_start"
+C-right = "move_next_word_end"
+A-k = "scroll_up"
+A-j = "scroll_down"

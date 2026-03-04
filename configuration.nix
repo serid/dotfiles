@@ -64,6 +64,7 @@
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
       # rust utils
+      eza
       bat
       fd
       ripgrep
@@ -150,6 +151,8 @@
 
     function cd; builtin cd $argv && l; end
 
+    function deref-which; which $argv[1] | xargs --no-run-if-empty readlink; end
+
     # Default "nix develop" does not work with "exec fish"
     function nd
       nix develop $argv -c "$SHELL"
@@ -210,6 +213,7 @@
     };
   };
 
+  # Vial keyboard configuration rule
   services.udev.extraRules = ''
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';

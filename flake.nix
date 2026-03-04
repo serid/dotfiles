@@ -11,6 +11,7 @@
   outputs = { self, nixpkgs, impermanence, nix-index-database, ... }@inputs:
     let sharedModules = [
       ./configuration.nix
+      ./services.nix
       ./home-linker.nix
 
       impermanence.nixosModules.default
