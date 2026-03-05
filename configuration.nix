@@ -17,17 +17,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   environment.persistence."/persist" = {
-    directories = [
-      "/etc/nixos"
-      "/var/lib/nixos"
-      "/var/log"
-
-      "/home"
-      "/etc/NetworkManager/system-connections"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
+    directories = (lib.importTOML ./home-linker/persisted-directories.toml).paths;
+    files = (lib.importTOML ./home-linker/persisted-files.toml).paths;
   };
 
   security.sudo.extraConfig = ''
@@ -63,6 +54,32 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
+      (writeScriptBin "smart-recent-home-changes" ''
+        #!${nodejs-slim}/bin/node
+        // Prints what files in home directory have recorded mtime after $1
+        // Subtracts ./home-linker/persisted-files.toml
+
+        // TODO: invent some way to concisely extend the salvation list and
+        // of writing the newly persistent file to disk
+        // jq '. + ["new_item"]' data.json > new-data.json && mv new-data.json data.json
+        // but for toml while preserving comments
+
+        const { execSync } = require('child_process')
+
+        if (process.argv.length != 3) {
+          process.stderr.write('One argument required: period within which modification occured, e. g. "30 seconds ago"')
+          process.exit(1)
+        }
+        const period = process.argv[2]
+
+        const paths = execSync(`${findutils}/bin/find ~ -xdev -type f -newermt "''${period}"`, { encoding: 'utf-8' }).trim().split('\n')
+        const excludePaths = JSON.parse(execSync('${yq}/bin/tomlq -e ".paths" ${./home-linker/persisted-files.toml}'))
+
+        // can reduce time complexety to O(N+M) here if you feel like it
+        const result = paths.filter(path => !excludePaths.includes(path))
+
+        console.log(result.join('\n'))
+      '')
       # rust utils
       eza
       bat
@@ -145,6 +162,8 @@
     poff = "poweroff";
     diff = "diff --color=auto";
     git-river = "${pkgs.git}/bin/git log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
+    recent-home-changes = "find ~ -xdev -type f -newermt '30 seconds ago'";
+    mount-btrfs-volume = "mkdir -p /tmp/workshop/btrfs-vol; sudo mount /dev/disk/by-label/Notroot /tmp/workshop/btrfs-vol";
   };
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting

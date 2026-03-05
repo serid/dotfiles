@@ -12,7 +12,7 @@
     let sharedModules = [
       ./configuration.nix
       ./services.nix
-      ./home-linker.nix
+      ./home-linker/home-linker.nix
 
       impermanence.nixosModules.default
 
