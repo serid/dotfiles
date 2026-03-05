@@ -1,3 +1,6 @@
+# Create symlinks from /home/jit into /workshop/dotfiles/dotfiles
+# and also a symlink at /etc/nixos/flake.nix
+
 let configs = {
   "settings.json" = ".config/Code/User/settings.json";
   "keybindings.json" = ".config/Code/User/keybindings.json";

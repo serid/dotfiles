@@ -17,17 +17,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   environment.persistence."/persist" = {
-    directories = [
-      "/etc/nixos"
-      "/var/lib/nixos"
-      "/var/log"
-
-      "/home"
-      "/etc/NetworkManager/system-connections"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
+    directories = (lib.importTOML ./home-linker/persisted-directories.toml).paths;
+    files = (lib.importTOML ./home-linker/persisted-files.toml).paths;
   };
 
   security.sudo.extraConfig = ''
@@ -63,6 +54,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
+      (writeScriptBin "smart-recent-home-changes" ''
+        FIND=${findutils}/bin/find TOMLQ=${yq}/bin/tomlq PERSISTED_FILES=${./home-linker/persisted-files.toml} ${nodejs-slim}/bin/node ${./home-linker/smart-recent-home-changes.js} "$@"
+      '')
       # rust utils
       eza
       bat
@@ -145,6 +139,8 @@
     poff = "poweroff";
     diff = "diff --color=auto";
     git-river = "${pkgs.git}/bin/git log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
+    recent-home-changes = "find ~ -xdev -type f -newermt '30 seconds ago'";
+    mount-btrfs-volume = "mkdir -p /tmp/workshop/btrfs-vol; sudo mount /dev/disk/by-label/Notroot /tmp/workshop/btrfs-vol";
   };
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting

@@ -1,0 +1,58 @@
+paths = [
+  # System
+  "/etc/machine-id",
+
+  # Home
+  "/home/jit/.gitconfig",
+  "/home/jit/.node_repl_history",
+
+  "/home/jit/.config/btop/btop.conf",
+  "/home/jit/.config/zed/settings.json",
+
+  "/home/jit/.local/share/fish/fish_history",
+
+  # Following paths were obtained by running
+  # recent-home-changes a.k.a
+  # find ~ -xdev -type f -newermt '30 seconds ago'
+
+  # Plasma theme
+  "/home/jit/.gtkrc-2.0",
+  "/home/jit/.cache/icon-cache.kcache",
+  "/home/jit/.cache/plasma_theme_default.kcache",
+  "/home/jit/.config/Trolltech.conf",
+  "/home/jit/.config/gtkrc-2.0",
+  "/home/jit/.config/gtkrc",
+  "/home/jit/.config/kwinrc",
+  "/home/jit/.config/kdeglobals",
+  "/home/jit/.config/gtk-4.0/gtk.css",
+  "/home/jit/.config/gtk-4.0/settings.ini",
+  "/home/jit/.config/gtk-4.0/colors.css",
+  "/home/jit/.config/gtk-3.0/gtk.css",
+  "/home/jit/.config/gtk-3.0/settings.ini",
+  "/home/jit/.config/gtk-3.0/colors.css",
+  "/home/jit/.config/dconf/user",
+  "/home/jit/.config/xsettingsd/xsettingsd.conf",
+  "/home/jit/.config/kdedefaults/ksplashrc",
+  "/home/jit/.config/kdedefaults/kdeglobals",
+  "/home/jit/.config/kdedefaults/package",
+
+  # Plasma keyboard layouts
+  "/home/jit/.config/kxkbrc",
+  "/home/jit/.config/kglobalshortcutsrc",
+  # keystroke repeat delay
+  "/home/jit/.config/kcminputrc",
+
+  # Plasma launcher pins
+  "/home/jit/.config/kactivitymanagerdrc",
+  "/home/jit/.config/kactivitymanagerd-statsrc",
+
+  # Plasma taskbar pins
+  "/home/jit/.config/plasma-org.kde.plasma.desktop-appletsrc",
+  # Taskbar shape
+  "/home/jit/.config/plasmashellrc",
+
+  # Dolphin favorite directories
+  "/home/jit/.local/share/user-places.xbel",
+  "/home/jit/.local/share/user-places.xbel.bak",
+  "/home/jit/.local/share/user-places.xbel.tbcache",
+]
