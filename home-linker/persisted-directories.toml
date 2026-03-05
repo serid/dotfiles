@@ -1,0 +1,60 @@
+paths = [
+  # System
+  "/etc/nixos",
+  "/var/lib/nixos",
+  "/var/log",
+
+  "/etc/NetworkManager/system-connections",
+
+  # Home
+  "/home/jit/Downloads/Telegram Desktop",
+
+  "/home/jit/.lmstudio",
+  "/home/jit/.rustup",
+  "/home/jit/.thunderbird",
+  "/home/jit/.mozilla",
+  "/home/jit/.cargo",
+  "/home/jit/.zef",
+  "/home/jit/.raku",
+  "/home/jit/.vscode",
+  "/home/jit/.steam",
+  "/home/jit/.ssh",
+
+  "/home/jit/.config/chromium",
+  "/home/jit/.config/Code",
+  "/home/jit/.config/LM Studio",
+  "/home/jit/.config/opencode",
+
+  "/home/jit/.local/state/opencode",
+  "/home/jit/.local/state/nix",
+  "/home/jit/.local/state/comma",
+  
+  "/home/jit/.local/share/Steam",
+  "/home/jit/.local/share/TelegramDesktop",
+  "/home/jit/.local/share/PrismLauncher",
+  "/home/jit/.local/share/zed",
+  "/home/jit/.local/share/baloo",
+  "/home/jit/.local/share/v2rayN",
+  "/home/jit/.local/share/opencode",
+  "/home/jit/.local/share/Trash",
+
+  "/home/jit/.cache/ddcutil",
+  "/home/jit/.cache/bookmarksrunner",
+  "/home/jit/.cache/chromium",
+  "/home/jit/.cache/fish",
+  "/home/jit/.cache/fontconfig",
+  "/home/jit/.cache/mesa_shader_cache",
+  "/home/jit/.cache/mozilla",
+  "/home/jit/.cache/nix",
+  "/home/jit/.cache/opencode",
+  "/home/jit/.cache/thumbnails",
+  "/home/jit/.cache/thunderbird",
+  "/home/jit/.cache/Vial",
+
+  "/home/jit/.config/Bitwarden",
+  "/home/jit/.pki/nssdb",
+  "/home/jit/.local/share/kwalletd",
+
+  # Plasma launcher pins
+  "/home/jit/.local/share/kactivitymanagerd/",
+]
