@@ -4,6 +4,12 @@ insert-final-newline = false
 [editor.soft-wrap]
 enable = true
 
+# Removes autopaiting for ""'' and ``
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+
 [keys.normal]
 C-z = [":write-all", "suspend"]
 C-left = "move_prev_word_start"

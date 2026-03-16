@@ -128,7 +128,7 @@
     ll = "l -l";
     la = "l -A";
     tree = "l -Ta";
-    fd = "fd -H"; # Find hidden files too
+    fd = "fd --show-errors --glob --hidden"; # Find hidden files too
     pg = "printf '%s\n'"; # print paths matching glob pattern
     rm = "rm -vI";
     rmr = "rm -r";
