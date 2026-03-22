@@ -55,7 +55,7 @@
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
       (writeScriptBin "smart-recent-home-changes" ''
-        FIND=${findutils}/bin/find TOMLQ=${yq}/bin/tomlq PERSISTED_FILES=${./home-linker/persisted-files.toml} ${nodejs-slim}/bin/node ${./home-linker/smart-recent-home-changes.js} "$@"
+        FIND=${findutils}/bin/find TOMLQ=${yq}/bin/tomlq PERSISTED_FILES=${./home-linker/persisted-files.toml} ${bun}/bin/bun ${./home-linker/smart-recent-home-changes.js} "$@"
       '')
       # rust utils
       eza
@@ -160,6 +160,10 @@
       sudo nixos-rebuild $argv
     end
 
+    function fetch
+      nix build --no-link --print-out-paths "nixpkgs#$argv[1]"
+    end
+
     function q
       if test -d $argv[1]
         ${pkgs.eza}/bin/eza $argv
@@ -189,7 +193,7 @@
     end
   '';
 
-  # Drop from Bash into Fish immediatenly when opening an interactive shell AND not executing a command with "-c"
+  # Drop from Bash into Fish immediately when opening an interactive shell AND not executing a command with "-c"
   programs.bash = {
     interactiveShellInit = ''
       if [[ -z ''${BASH_EXECUTION_STRING} ]]

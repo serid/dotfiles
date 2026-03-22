@@ -11,6 +11,8 @@ enable = true
 '[' = ']'
 
 [keys.normal]
+C-q = [":write-quit-all"]
+C-f = [":write-all"]
 C-z = [":write-all", "suspend"]
 C-left = "move_prev_word_start"
 C-right = "move_next_word_end"
@@ -19,8 +21,19 @@ A-j = "scroll_down"
 D = "delete_char_backward"
 
 [keys.insert]
+C-q = [":write-quit-all"]
+C-f = [":write-all"]
 C-z = [":write-all", "suspend"]
 C-left = "move_prev_word_start"
 C-right = "move_next_word_end"
+A-k = "scroll_up"
+A-j = "scroll_down"
+
+[keys.select]
+C-q = [":write-quit-all"]
+C-f = [":write-all"]
+C-z = [":write-all", "suspend"]
+C-left = "extend_prev_word_start"
+C-right = "extend_next_word_end"
 A-k = "scroll_up"
 A-j = "scroll_down"
