@@ -117,7 +117,7 @@
 
   environment.variables = {
     EDITOR = "${pkgs.helix}/bin/hx";
-    LESS = "-RiF --mouse --wheel-lines=3";
+    LESS = "--RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen --quit-on-intr --mouse --wheel-lines=3 --incsearch --search-options=W";
   };
   #services.deluge.enable = true;
   programs.fish.enable = true;
@@ -170,6 +170,10 @@
         return
       end
       ${pkgs.bat}/bin/bat $argv
+    end
+
+    function lessinter
+      ${pkgs.expect}/bin/unbuffer $argv | less
     end
     
     # Create a new "~/.git-credentials" in encrypted form
