@@ -6,11 +6,9 @@
     enable = true;
   };
 
-  # Commit changes to bckp
   systemd.services.bckp = {
-    wantedBy = [ "default.target" ];
-    wants = [ "-.mount" ];
-    after = [ "-.mount" ];
+    description = "Commit changes to bckp";
+    wantedBy = [ "graphical.target" ];
     serviceConfig.Type = "oneshot";
     serviceConfig.User = "jit";
     serviceConfig.WorkingDirectory = "/workshop/bckp";

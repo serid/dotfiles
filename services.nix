@@ -1,10 +1,8 @@
 { config, pkgs, lib, ... }:
 {
-  # Commit changes to bckp
   systemd.services.tmp-workshop = {
-    wantedBy = [ "default.target" ];
-    wants = [ "-.mount" ];
-    after = [ "-.mount" ];
+    description = "Create a temporary working directory";
+    wantedBy = [ "graphical.target" ];
     serviceConfig.Type = "oneshot";
     serviceConfig.User = "jit";
     serviceConfig.WorkingDirectory = "/";

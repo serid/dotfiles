@@ -15,18 +15,14 @@ let configs = {
       '') configs)); in
 {
   systemd.services.just-in-time-home-linker = {
-    wantedBy = [ "default.target" ];
-    wants = [ "-.mount" ];
-    after = [ "-.mount" ];
+    wantedBy = [ "graphical.target" ];
     serviceConfig.Type = "oneshot";
     serviceConfig.User = "jit";
     inherit script;
   };
 
   systemd.services.just-in-time-home-linker-root = {
-    wantedBy = [ "default.target" ];
-    wants = [ "-.mount" ];
-    after = [ "-.mount" ];
+    wantedBy = [ "graphical.target" ];
     serviceConfig.Type = "oneshot";
     script = ''
       ln -sf /workshop/dotfiles/flake.nix /etc/nixos/flake.nix
