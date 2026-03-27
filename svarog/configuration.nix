@@ -6,6 +6,14 @@
     enable = true;
   };
 
+  systemd.services.thermald-amd = {
+    description = "Adjust CPU frequency to prevent overheating";
+    wantedBy = [ "graphical.target" ];
+    serviceConfig.Type = "exec";
+    serviceConfig.User = "root";
+    serviceConfig.ExecStart = "${pkgs.bun}/bin/bun ${./thermald-amd.js}";
+  };
+
   systemd.services.bckp = {
     description = "Commit changes to bckp";
     wantedBy = [ "graphical.target" ];
