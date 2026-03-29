@@ -66,6 +66,7 @@
       tokei
       wl-clipboard-rs
       
+      bun
       btop
 
       unzip
@@ -82,6 +83,7 @@
       #kdePackages.karousel
       vial
 
+      libreoffice
       xray
       proxychains-ng
       #discord
@@ -128,7 +130,7 @@
     ll = "l -l";
     la = "l -A";
     tree = "l -Ta";
-    fd = "fd --show-errors --glob --hidden"; # Find hidden files too
+    fd = "fd --show-errors --hidden"; # Find hidden files too
     pg = "printf '%s\n'"; # print paths matching glob pattern
     rm = "rm -vI";
     rmr = "rm -r";
