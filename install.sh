@@ -24,6 +24,13 @@ sudo mount -o subvol=workshop,noatime "$DISK"2 /mnt/workshop
 mkdir /mnt/boot
 sudo mount "$DISK"1 /mnt/boot
 
+swapon --discard -L Swap
+# If this does not work, don't forget to add to hardware-configuration.nix following:
+#   swapDevices = [{
+#     device = "/dev/disk/by-label/Swap";
+#     options = [ "discard" ];
+#   }];
+
 nixos-install --no-root-passwd
 
 # After logging into new system don't generate a hardware config and pull relevant lines
