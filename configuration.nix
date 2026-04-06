@@ -86,6 +86,7 @@
       libreoffice
       xray
       proxychains-ng
+      prismlauncher
       #discord
 
       #jetbrains.idea-ultimate

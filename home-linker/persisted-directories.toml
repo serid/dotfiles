@@ -57,4 +57,7 @@ paths = [
 
   # Plasma launcher pins
   "/home/jit/.local/share/kactivitymanagerd/",
+
+  # Libreoffice settings
+  "/home/jit/.config/libreoffice/",
 ]
