@@ -7,6 +7,7 @@
   };
 
   systemd.services.thermald-amd = {
+    enable = false;
     description = "Adjust CPU frequency to prevent overheating";
     wantedBy = [ "graphical.target" ];
     serviceConfig.Type = "exec";
