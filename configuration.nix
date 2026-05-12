@@ -67,6 +67,7 @@
       wl-clipboard-rs
       
       bun
+      nodejs-slim
       btop
 
       unzip

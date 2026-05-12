@@ -8,6 +8,5 @@
     "editor.tabSize": 2,
     "chat.commandCenter.enabled": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "window.commandCenter": false,
-    "workbench.colorTheme": "Andromeda Bordered"
+    "window.commandCenter": false
 }
