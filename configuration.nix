@@ -32,6 +32,8 @@
 
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
+  # TODO: toggleable nix-scoped proxying with secret secrets
+  # networking.proxy.allProxy = "socks5h://login:password@192.168.0.ip:port";
 
   time.timeZone = "Europe/Moscow";
   i18n = {
@@ -72,6 +74,7 @@
 
       unzip
       ghostty
+      meld
       gimp
       telegram-desktop
       thunderbird
@@ -86,6 +89,7 @@
 
       libreoffice
       xray
+      v2rayn
       proxychains-ng
       prismlauncher
       #discord
