@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-old.url = "github:NixOS/nixpkgs/nixos-25.11";
     impermanence.url = "github:nix-community/impermanence";
     impermanence.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -8,7 +9,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, impermanence, nix-index-database, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-old, impermanence, nix-index-database, ... }@inputs:
     let sharedModules = [
       ./configuration.nix
       ./services.nix
@@ -31,6 +32,9 @@
       })
     ]; in {
     nixosConfigurations.svarog = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        pkgs-old = nixpkgs-old.legacyPackages.x86_64-linux;
+      };
       modules = sharedModules ++ [
         ./svarog/hardware-configuration.nix
         ./svarog/configuration.nix

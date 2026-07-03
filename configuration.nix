@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-old, lib, ... }:
 {
   fileSystems."/".options = [ "defaults" "size=32G" "mode=755" "noatime" ];
   fileSystems."/nix".options = [ "noatime" ];
