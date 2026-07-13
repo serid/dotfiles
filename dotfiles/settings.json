@@ -8,5 +8,7 @@
     "editor.tabSize": 2,
     "chat.commandCenter.enabled": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "window.commandCenter": false
+    "window.commandCenter": false,
+    "chat.disableAIFeatures": true,
+    "security.workspace.trust.enabled": false
 }

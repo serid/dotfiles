@@ -60,4 +60,13 @@ paths = [
 
   # GTK favorite directories
   "/home/jit/.config/gtk-3.0/bookmarks",
+
+  # Gwenview settings (auto-play video)
+  "/home/jit/.config/gwenviewrc",
+
+  # VSCode DB (i thought it would remember trusted directories)
+  #"/home/jit/.vscode-shared/sharedStorage/state.vscdb",
+
+  # Okular PDF viewer (dark mode)
+  "/home/jit/.local/state/okularstaterc",
 ]
