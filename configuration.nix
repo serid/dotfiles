@@ -30,8 +30,17 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
-  networking.networkmanager.enable = true;
-  networking.useDHCP = false;
+  systemd.network.enable = true;
+  systemd.network.networks."10000000-lan" = {
+    # Ethernet interface aka enp2s0, though pci path is more stable
+    matchConfig.Path = "pci-0000:02:00.0";
+    networkConfig.DHCP = "ipv4";
+    
+    # 'Setting individual interfaces to "no" is a perfectly valid choice and should be considered, before disabling the systemd-networkd-wait-online.service entirely, because a working network-online.target is required for some services to properly start without race conditions.'
+    linkConfig.RequiredForOnline = "no";
+  };
+  networking.useDHCP = false; # conflicts with systemd-networkd
+
   # TODO: toggleable proxying with secret secrets
   # systemd.services.nix-daemon.environment = {
   #   all_proxy = "socks5h://login:password@192.168.0.ip:port";
