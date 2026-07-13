@@ -32,8 +32,11 @@
 
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
-  # TODO: toggleable nix-scoped proxying with secret secrets
-  # networking.proxy.allProxy = "socks5h://login:password@192.168.0.ip:port";
+  # TODO: toggleable proxying with secret secrets
+  # systemd.services.nix-daemon.environment = {
+  #   all_proxy = "socks5h://login:password@192.168.0.ip:port";
+  #   ALL_PROXY = "socks5h://login:password@192.168.0.ip:port";
+  # };
 
   time.timeZone = "Europe/Moscow";
   i18n = {
