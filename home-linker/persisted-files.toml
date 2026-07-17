@@ -69,4 +69,6 @@ paths = [
 
   # Okular PDF viewer (dark mode)
   "/home/jit/.local/state/okularstaterc",
+  # Recent documents
+  "/home/jit/.config/okularrc",
 ]

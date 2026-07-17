@@ -63,9 +63,10 @@
   '';
 
   users.mutableUsers = false;
-  users.users.root.initialPassword = "1";
+  users.users.root.initialPassword = "m";
   users.users.jit = {
     isNormalUser = true;
+    initialPassword = "m";
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
       (writeScriptBin "smart-recent-home-changes" ''
@@ -112,7 +113,6 @@
       zed-editor
       nil
     ];
-    initialPassword = "1";
   };
 
   # List packages installed in system profile.
