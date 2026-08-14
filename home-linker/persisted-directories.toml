@@ -60,4 +60,6 @@ paths = [
 
   # Libreoffice settings
   "/home/jit/.config/libreoffice/",
+
+  "/home/jit/.config/JetBrains/",
 ]

@@ -71,4 +71,9 @@ paths = [
   "/home/jit/.local/state/okularstaterc",
   # Recent documents
   "/home/jit/.config/okularrc",
+
+  # VLC
+  "/home/jit/.config/vlc/vlcrc",
+
+  "/home/jit/.codex/history.jsonl",
 ]

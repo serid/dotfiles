@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, pkgs-old, lib, ... }:
+{ config, pkgs, pkgs-old, pkgs-unstable, lib, ... }:
 {
   fileSystems."/".options = [ "defaults" "size=32G" "mode=755" "noatime" ];
   fileSystems."/nix".options = [ "noatime" ];
@@ -39,6 +39,7 @@
     # 'Setting individual interfaces to "no" is a perfectly valid choice and should be considered, before disabling the systemd-networkd-wait-online.service entirely, because a working network-online.target is required for some services to properly start without race conditions.'
     linkConfig.RequiredForOnline = "no";
   };
+  systemd.network.wait-online.enable = false;
   networking.useDHCP = false; # conflicts with systemd-networkd
 
   # TODO: toggleable proxying with secret secrets
@@ -89,13 +90,14 @@
       ghostty
       meld
       gimp
+      vlc
       telegram-desktop
       thunderbird
       firefox
       ungoogled-chromium
 
       lmstudio
-      opencode
+      pkgs-unstable.codex
 
       #kdePackages.karousel
       vial
@@ -107,7 +109,7 @@
       prismlauncher
       #discord
 
-      #jetbrains.idea-ultimate
+      pkgs-old.jetbrains.idea-oss
 
       vscode
       zed-editor
