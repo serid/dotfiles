@@ -73,6 +73,9 @@
       (writeScriptBin "smart-recent-home-changes" ''
         FIND=${findutils}/bin/find TOMLQ=${yq}/bin/tomlq PERSISTED_FILES=${./home-linker/persisted-files.toml} ${bun}/bin/bun ${./home-linker/smart-recent-home-changes.js} "$@"
       '')
+      (writeScriptBin "purge-persistence-volume" ''
+        TOMLQ=${yq}/bin/tomlq ${bun}/bin/bun ${./home-linker/purge-persistence-volume.js} "$@"
+      '')
       # rust utils
       eza
       bat

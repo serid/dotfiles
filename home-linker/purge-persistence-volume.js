@@ -4,12 +4,12 @@ import { isAbsolute, normalize, join, resolve } from 'path'
 
 function parse() {
   if (process.argv.length < 3) {
-    process.stderr.write("purge-persistence-volume: Delete all files and directories from volume specified in first argument (e. g. `/persist`)\n
+    process.stderr.write(`purge-persistence-volume: Delete all files and directories from volume specified in first argument (e. g. \`/persist\`)\n
 while keeping files and directories listed in\n
 /workshop/dotfiles/home-linker/persisted-files.toml\n
 /workshop/dotfiles/home-linker/persisted-directories.toml\n
 
-Pass `--dry-run` to print changes without modifying the filesystem.\n")
+Pass \`--dry-run\` to print changes without modifying the filesystem.\n`)
     process.exit(1)
   }
   let args = process.argv.slice(2)
