@@ -155,6 +155,7 @@
     tree = "l -Ta";
     fd = "fd --show-errors --hidden"; # Find hidden files too
     pg = "printf '%s\n'"; # print paths matching glob pattern
+    mv = "mv -vi";
     rm = "rm -vI";
     rmr = "rm -r";
     j = "jobs";
@@ -169,6 +170,8 @@
   };
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting
+
+    source ${./persist.fish}
 
     function cd; builtin cd $argv && l; end
 
