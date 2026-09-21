@@ -43,6 +43,8 @@ paths = [
   "/home/jit/.config/kglobalshortcutsrc",
   # keystroke repeat delay
   "/home/jit/.config/kcminputrc",
+  # KDE Power settings
+  "/home/jit/.config/powerdevilrc",
 
   # Plasma launcher pins
   "/home/jit/.config/kactivitymanagerdrc",

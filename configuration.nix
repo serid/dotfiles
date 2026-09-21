@@ -30,6 +30,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl."kernel.sysrq" = 1;
 
+  boot.zswap = {
+    enable = true;
+  };
+
   systemd.network.enable = true;
   systemd.network.networks."10000000-lan" = {
     # Ethernet interface aka enp2s0, though pci path is more stable
@@ -56,6 +60,8 @@
       LC_COLLATE = "C.UTF-8";
     };
   };
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   nixpkgs.config.allowUnfree = true;
   nix.extraOptions = ''
