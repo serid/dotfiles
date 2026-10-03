@@ -3,12 +3,17 @@
     "files.autoSave": "onFocusChange",
     "editor.wordWrap": "wordWrapColumn",
     "diffEditor.renderSideBySide": true,
-    "diffEditor.hideUnchangedRegions.enabled": true,
     "window.customTitleBarVisibility": "windowed",
     "editor.tabSize": 2,
-    "chat.commandCenter.enabled": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "window.commandCenter": false,
     "chat.disableAIFeatures": true,
-    "security.workspace.trust.enabled": false
+    "security.workspace.trust.enabled": false,
+    "workbench.colorTheme": "Andromeda Bordered",
+    "editor.minimap.showSlider": "always",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "always"
+    },
+    "editor.insertSpaces": false,
+    "diffEditor.hideUnchangedRegions.enabled": true
 }

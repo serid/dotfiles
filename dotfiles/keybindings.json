@@ -11,5 +11,13 @@
     {
         "key": "ctrl+k ctrl+o",
         "command": "git.openFile"
+    },
+    {
+        "key": "ctrl+alt+b",
+        "command": "workbench.action.files.save"
+    },
+    {
+        "key": "ctrl+s",
+        "command": "-workbench.action.files.save"
     }
 ]

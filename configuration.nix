@@ -162,6 +162,7 @@
     fd = "fd --show-errors --hidden"; # Find hidden files too
     pg = "printf '%s\n'"; # print paths matching glob pattern
     mv = "mv -vi";
+    cp = "cp -vi";
     rm = "rm -vI";
     rmr = "rm -r";
     j = "jobs";
