@@ -1,10 +1,5 @@
 paths = [
   # System
-  "/etc/nixos",
-  "/var/lib/nixos",
-  "/var/log",
-
-  "/etc/NetworkManager/system-connections",
 
   # Home
   "/home/jit/Downloads/Telegram Desktop",
@@ -57,6 +52,11 @@ paths = [
 
   # Plasma launcher pins
   "/home/jit/.local/share/kactivitymanagerd/",
+
+  # Installed Plasma cursors
+  "/home/jit/.icons/",
+
+  "/home/jit/.config/vlc/",
 
   # Libreoffice settings
   "/home/jit/.config/libreoffice/",

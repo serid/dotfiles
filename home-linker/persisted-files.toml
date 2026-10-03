@@ -1,10 +1,8 @@
 paths = [
-  # System
-  "/etc/machine-id",
-
   # Home
   "/home/jit/.gitconfig",
   "/home/jit/.node_repl_history",
+  "/home/jit/.bun_repl_history",
 
   "/home/jit/.config/btop/btop.conf",
   "/home/jit/.config/zed/settings.json",

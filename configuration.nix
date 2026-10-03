@@ -17,8 +17,22 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   environment.persistence."/persist" = {
-    directories = (lib.importTOML ./home-linker/persisted-directories.toml).paths;
-    files = (lib.importTOML ./home-linker/persisted-files.toml).paths;
+    directories = [
+      "/etc/nixos"
+      "/var/lib/nixos"
+      "/var/log"
+
+      #"/etc/NetworkManager/system-connections"
+      "/var/lib/qBitorrent/"
+    ] ++
+    map (x: { directory = x; user = "jit"; group = "jit"; })
+      (lib.importTOML ./home-linker/persisted-directories.toml).paths;
+
+    files = [
+      "/etc/machine-id"
+    ] ++
+    map (x: { file = x; parentDirectory = { user = "jit"; group = "jit"; }; })
+      (lib.importTOML ./home-linker/persisted-files.toml).paths;
   };
 
   security.sudo.extraConfig = ''
